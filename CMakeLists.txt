@@ -12,3 +12,10 @@ add_executable(KeyPad)
 target_sources(KeyPad PUBLIC source/keypad.c)
 add_subdirectory(driver/matrixkeypad)
 target_link_libraries(KeyPad matrixkeypad)
+
+
+add_subdirectory(test)
+
+
+include(CTest)
+add_test(NAME matrixKeyPadTest COMMAND KeyPad)
