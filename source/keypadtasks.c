@@ -1,19 +1,33 @@
 #include <stdio.h>
-#include <matrixkeypad/matrixkeypad.h>
+#include <matrixkeypad/matrixkeypadFreeRtos.h>
 
-DECLAR_Generic_MatrixKeypad(matrixkeypad0)
+//create instance of an MatrixKeyPad
+DECLAR_MatrixKeypadRTOS(matrixkeypad0)
 
+//Queue used to signal new matrix KeyPadInput available
 QueueHandle_t keypadinput_q;
 
+/**
+ *the Service Handling the KeyPad input
+*/
 void KeypadTask( void * pvParameters )
 {
     while(1)
     {
         xQueueReceive(keypadinput_q, portMAX_DELAY);
+
+        //rate limiting
+        //verify input
+        //unlock ...
+
+        //or forward input to different device
     }
 }
 
-int main()
+/*
+ * Main of the Matrix KeyPad Project
+ */
+int main(void)
 {
     char buffer[16];
 
@@ -22,8 +36,9 @@ int main()
     if(MatixKeypad_init(&matrixkeypad0, buffer, sizeof(buffer)) != 0)
         printf("KeyPad INIT failed\n");
 
-    
+    //TODO start KeypadTask thread
 
+    while(1) {}
 
     return 0;
 }
